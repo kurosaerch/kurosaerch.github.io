@@ -15,7 +15,7 @@ jobs:
 
       - name: Install, Build and Test
         run: |
-          npm install
+          npm install --force
           npm run build
           npm run test:unit
 
