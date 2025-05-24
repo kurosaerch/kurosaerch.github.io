@@ -2,12 +2,13 @@ import { persistentWritable } from './persistent-store';
 import { StoreKey } from './store-keys';
 
 const getInitial = () => ({
-	Loli: true,
+	Loli: false,
 	'AI-Generated': false,
 	'Animal-Related': false,
 	'Non-Consentual': false,
-	Gore: false,
-	Scat: false
+	Gore: true,
+	Scat: true,
+	Vore: true
 });
 
 const createBlockedContentStore = () => {
