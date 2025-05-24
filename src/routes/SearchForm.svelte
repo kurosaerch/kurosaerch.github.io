@@ -76,30 +76,16 @@
 	const handleScroll = () => {
 		const currentScrollY = window.scrollY;
 		const scrollDifference = currentScrollY - lastScrollY;
-	
-		const printScrollDifference = () => ((scrollDifference > 0) 
-				? (scrollDifference < hideThreshold)
-					? `Down: small`
-					: `Down: big`
-				: (scrollDifference >= -showThreshold)
-					? `Up: small`
-					: `Up: big`);
 
 		// Always show the searchbar at the top
-		if (currentScrollY < 500) {
+		if (currentScrollY < 500)
 			isVisible = true;
-			console.log(`Always show, isVisible: ${isVisible}`);
-		}
 		// Scrolling down
-		else if (scrollDifference > 0) {
+		else if (scrollDifference > 0) 
 			isVisible = isVisible && scrollDifference < hideThreshold;
-			console.log(`${printScrollDifference()}, isVisible: ${isVisible}`);
-		}
 		// Scrolling up
-		else {
+		else 
 			isVisible = isVisible || scrollDifference < -showThreshold;
-			console.log(`${printScrollDifference()}, isVisible: ${isVisible}`);
-		}
 
 		lastScrollY = currentScrollY;
 	};
