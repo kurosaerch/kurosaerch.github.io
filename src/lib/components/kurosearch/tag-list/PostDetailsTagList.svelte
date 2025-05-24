@@ -1,8 +1,14 @@
 <script lang="ts">
 	import activeTagsStore from '$lib/store/active-tags-store';
 	import SimpleTag from '../tag-simple/SimpleTag.svelte';
+	import { getShareUrl } from '$lib/logic/url-parsing';
 
 	export let tags: kurosearch.Tag[];
+
+	const openTagInNewTab = (tag: kurosearch.Tag) => {
+		const url = getShareUrl([{modifier: '+', ...tag}]);
+		window.open(url, '_blank');
+	};
 </script>
 
 <ul class="tags">
@@ -14,6 +20,7 @@
 				active
 					? activeTagsStore.removeByName(tag.name)
 					: activeTagsStore.addOrReplace({ ...tag, modifier: '+' })}
+			on:contextmenu={() => openTagInNewTab(tag)}
 			{active}
 		/>
 	{/each}

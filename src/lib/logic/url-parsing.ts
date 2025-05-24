@@ -123,8 +123,8 @@ const parseUrlFilter = (searchParams: URLSearchParams) => {
 
 export const getShareUrl = (
 	tags: kurosearch.ModifiedTag[],
-	sort: SortStoreData,
-	filter: FilterStoreData
+	sort?: SortStoreData,
+	filter?: FilterStoreData
 ) => {
 	if (!browser) {
 		return '';
