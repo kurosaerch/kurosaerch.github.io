@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
-	import KurosearchTitle from '$lib/components/kurosearch/kurosearch-title/KurosearchTitle.svelte';
 	import Searchbar from '$lib/components/kurosearch/searchbar/Searchbar.svelte';
 	import ActiveTagList from '$lib/components/kurosearch/tag-list/ActiveTagList.svelte';
 	import LoadingAnimation from '$lib/components/pure/loading-animation/LoadingAnimation.svelte';
@@ -76,7 +75,6 @@
 </script>
 
 <section id="search">
-	<KurosearchTitle />
 	<Searchbar
 		placeholder="Search for tags"
 		{fetchSuggestions}
@@ -139,6 +137,11 @@
 		align-items: center;
 		gap: var(--grid-gap);
 		padding-inline: var(--small-gap);
+		position: sticky;
+		top: 0;
+		background: var(--background-1);
+		z-index: var(--z-searchbar);
+		padding-block: var(--small-gap);
 	}
 
 	:global(#btn-search) {
