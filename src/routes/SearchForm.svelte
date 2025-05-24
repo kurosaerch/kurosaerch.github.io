@@ -107,11 +107,11 @@
 	</TextButton>
 	<ActiveTagList
 		tags={[...$activeTags, ...$activeSupertags]}
-		on:click={(e) =>
+		on:contextmenu={(e) =>
 			'description' in e.detail
 				? activeSupertags.removeByName(e.detail.name)
 				: activeTags.removeByName(e.detail.name)}
-		on:contextmenu={(e) => {
+		on:click={(e) => {
 			if (!('description' in e.detail)) {
 				e.detail.modifier = nextModifier(e.detail.modifier);
 				activeTags.addOrReplace(e.detail);
