@@ -15,6 +15,11 @@
 	import { createEventDispatcher, onDestroy, onMount } from 'svelte';
 	import CreateSupertagDialog from '$lib/components/kurosearch/dialog-create-supertag/CreateSupertagDialog.svelte';
 
+	let lastScrollY = 0;
+	let isVisible = true;
+	const hideThreshold = 20; // Pixels to scroll down before hiding
+	const showThreshold = 100; // Pixels to scroll up before showing
+
 	const dispatch = createEventDispatcher();
 	const submit = () => dispatch('submit');
 
@@ -61,20 +66,53 @@
 	onMount(async () => {
 		if (browser) {
 			document.addEventListener('keydown', keybinds);
+			document.addEventListener('scroll', handleScroll, { passive: true });
 			if ($results.postCount === 0) {
 				submit();
 			}
 		}
 	});
 
+	const handleScroll = () => {
+		const currentScrollY = window.scrollY;
+		const scrollDifference = currentScrollY - lastScrollY;
+	
+		const printScrollDifference = () => ((scrollDifference > 0) 
+				? (scrollDifference < hideThreshold)
+					? `Down: small`
+					: `Down: big`
+				: (scrollDifference >= -showThreshold)
+					? `Up: small`
+					: `Up: big`);
+
+		// Always show the searchbar at the top
+		if (currentScrollY < 500) {
+			isVisible = true;
+			console.log(`Always show, isVisible: ${isVisible}`);
+		}
+		// Scrolling down
+		else if (scrollDifference > 0) {
+			isVisible = isVisible && scrollDifference < hideThreshold;
+			console.log(`${printScrollDifference()}, isVisible: ${isVisible}`);
+		}
+		// Scrolling up
+		else {
+			isVisible = isVisible || scrollDifference < -showThreshold;
+			console.log(`${printScrollDifference()}, isVisible: ${isVisible}`);
+		}
+
+		lastScrollY = currentScrollY;
+	};
+
 	onDestroy(() => {
 		if (browser) {
 			document.removeEventListener('keydown', keybinds);
+			document.removeEventListener('scroll', handleScroll);
 		}
 	});
 </script>
 
-<section id="search">
+<section id="search" class:hidden={!isVisible}>
 	<Searchbar
 		placeholder="Search for tags"
 		{fetchSuggestions}
@@ -142,6 +180,12 @@
 		background: var(--background-0);
 		z-index: var(--z-searchbar);
 		padding-block: var(--small-gap);
+		transform: translateY(0);
+		transition: transform 0.3s ease-in-out;
+	}
+
+	.hidden {
+		transform: translateY(-100%);
 	}
 
 	:global(#btn-search) {
