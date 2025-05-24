@@ -139,7 +139,7 @@
 		padding-inline: var(--small-gap);
 		position: sticky;
 		top: 0;
-		background: var(--background-1);
+		background: var(--background-0);
 		z-index: var(--z-searchbar);
 		padding-block: var(--small-gap);
 	}
