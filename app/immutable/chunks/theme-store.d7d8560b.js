@@ -1,0 +1,1 @@
+import{p as t,S as a,s as i,a as n}from"./store-keys.22403613.js";const o=()=>{const e="crimson dark",{subscribe:s,set:r}=t(a.Theme,e,n,i);return{subscribe:s,set:r,reset:()=>r(e)}},m=o();export{m as t};

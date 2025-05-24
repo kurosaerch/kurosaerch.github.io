@@ -1,0 +1,1 @@
+import{p as a,S as t,b as s,c as i}from"./store-keys.22403613.js";import{c as r}from"./bool-store.9e973e82.js";const c=()=>{const{subscribe:o,set:e}=a(t.WideLayoutEnabled,!1,i,s);return{subscribe:o,set:e,reset:()=>e(!1)}},d=c(),p=r(t.CookiesAccepted,!1);export{p as c,d as w};
